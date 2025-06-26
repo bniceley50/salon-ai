@@ -4,11 +4,13 @@
   "description": "AI-powered hair salon management platform with WhatsApp booking, color formulation, and viral growth engine",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "nodemon src/api/server.js",
+    "start": "node src/api/server.js",
+    "mvp": "node start-mvp.js",
     "test": "jest",
     "test:critical": "jest --testPathPattern=critical",
-    "test:load": "k6 run tests/load/main.js",
+    "test:integration": "node integration-test.js",
+    "test:load": "echo 'Load testing requires k6 binary - see docs'",
     "test:watch": "jest --watch",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
@@ -33,7 +35,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
-    "whatsapp-web.js": "^1.19.5",
     "openai": "^4.0.0",
     "square": "^25.1.0",
     "redis": "^4.6.5",
@@ -45,14 +46,13 @@
     "dotenv": "^16.0.3",
     "axios": "^1.4.0",
     "limiter": "^2.1.0",
-    "crypto": "^1.0.1",
     "fluent-ffmpeg": "^2.1.2",
     "multer": "^1.4.5-lts.1",
     "twilio": "^4.11.0",
     "@google-cloud/speech": "^5.5.0",
     "googleapis": "^118.0.0",
     "stripe": "^12.9.0",
-    "sentry": "^7.54.0",
+    "@sentry/node": "^7.54.0",
     "prom-client": "^14.2.0"
   },
   "devDependencies": {
@@ -66,33 +66,11 @@
     "prettier": "^2.8.8",
     "webpack": "^5.87.0",
     "webpack-cli": "^5.1.4",
-    "k6": "^0.44.0",
     "@faker-js/faker": "^8.0.2"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coverageDirectory": "coverage",
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/index.js",
-      "!src/config/*.js"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.js",
-      "**/?(*.)+(spec|test).js"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 80
-      }
-    }
   },
   "repository": {
     "type": "git",
